@@ -1,0 +1,17 @@
+{
+  "file_size": 120000,
+  "object_count": 45,
+  "avg_objects_per_page": 3.5,
+  "metadata_length": 200,
+  "metadata_value_entropy": 4.2,
+  "invisible_text_ratio": 0.02,
+  "avg_char_spacing_deviation": 0.5,
+  "comment_length_ratio": 0.01,
+  "xref_gap_score": 0.3,
+  "padding_byte_ratio": 0.05,
+  "image_count": 2,
+  "image_entropy_delta": 0.8,
+  "image_size_anomaly": 0.1,
+  "text_to_nontext_ratio": 0.7,
+  "structural_complexity_score": 0.6
+}

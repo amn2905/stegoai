@@ -1,0 +1,11 @@
+{
+  "prediction": "Clean",
+  "confidence": 0.4072,
+  "risk_level": "Medium",
+  "decision": "Uncertain (boundary case)",
+  "model_used": "XGBoost",
+  "probabilities": {
+    "clean": 0.5928,
+    "stego": 0.4072
+  }
+}
