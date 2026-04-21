@@ -130,7 +130,7 @@ MAX_FILE_SIZE_MB=10
 👉 Download from:
 
 ```
-[PASTE-YOUR-GOOGLE-DRIVE-LINK-HERE(https://drive.google.com/file/d/1sLig5TaZXeAZyS_E7N3tpdcOxLiToyCE/view?usp=drive_link)
+(https://drive.google.com/file/d/1sLig5TaZXeAZyS_E7N3tpdcOxLiToyCE/view?usp=drive_link)
 ```
 
 👉 Place file here:
