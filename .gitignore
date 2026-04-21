@@ -24,8 +24,9 @@ dataset/
 *.jsonl
 
 # ===================== RESULTS =====================
-results/
+results/*
 !results/plots/
+!results/plots/**
 !results/report.md
 
 # ===================== NOTEBOOK =====================

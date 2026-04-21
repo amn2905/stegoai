@@ -1,80 +1,109 @@
-# 🔍 StegoAI – PDF Steganalysis System
+# 🛡️ StegoAI – Advanced PDF Steganalysis Platform
+
+### *AI-Powered Detection of Covert Data in Documents*
+
+---
 
 ## 📌 Overview
 
-**StegoAI** is a production-grade machine learning system designed to detect hidden (steganographic) data within PDF files.
+**StegoAI** is a full-stack, production-grade **machine learning platform** designed to detect hidden (steganographic) data embedded within PDF files.
 
-It combines:
+Unlike traditional security tools, StegoAI performs **deep structural and statistical analysis** to uncover covert communication channels that remain invisible to standard detection systems.
 
-* 📊 Statistical feature engineering
-* 🔍 Digital forensic analysis
-* 🧠 Ensemble ML models (XGBoost, LightGBM, RandomForest)
+The platform integrates:
 
-This system is built for:
-
-* Cybersecurity
-* Digital forensics
-* Threat detection
+* 🧠 **Machine Learning Engine** (XGBoost, LightGBM, RandomForest)
+* 🚀 **FastAPI Backend** (real-time inference API)
+* 🎨 **Streamlit Cyber UI** (interactive detection dashboard)
 
 ---
 
 ## 🚨 Problem Statement
 
-Steganography allows attackers to embed hidden data inside seemingly harmless PDF files.
+Modern cyber threats increasingly use **steganography** to conceal data inside documents such as PDFs.
 
-Traditional detection tools:
+This enables attackers to:
 
-* ❌ Fail to detect hidden payloads
-* ❌ Ignore structural anomalies
+* Exfiltrate sensitive information
+* Deliver hidden malware payloads
+* Maintain covert communication channels
 
-This leads to risks such as:
+🔴 Traditional security systems fail because they:
 
-* Data exfiltration
-* Malware delivery
-* Covert communication
+* Rely on signature-based detection
+* Ignore document structure anomalies
+* Cannot detect hidden semantic patterns
 
 ---
 
 ## 💡 Solution
 
-StegoAI detects hidden data by:
+StegoAI introduces a **forensic AI pipeline** that:
 
-* Extracting **structural + statistical features**
-* Analyzing:
+* Extracts **multi-dimensional features** from PDFs
+* Detects anomalies in:
 
   * Metadata entropy
-  * Invisible text patterns
-  * Binary structure anomalies
-* Classifying files as:
+  * Invisible / encoded text
+  * Structural inconsistencies
+  * Binary padding patterns
+* Classifies files into:
 
-  * ✅ Clean
-  * ⚠️ Stego
-
----
-
-## ⚙️ Key Features
-
-* 🧠 Ensemble ML models (RF, XGBoost, LightGBM)
-* 🔍 Advanced feature engineering
-* 📊 Model evaluation (Confusion Matrix, ROC)
-* 🚀 FastAPI-based inference API
-* 📁 Structured and scalable architecture
+  * ✅ Clean (Safe)
+  * ⚠️ Stego (Hidden Data Detected)
 
 ---
 
-## 🧠 Architecture
+## ⚙️ Key Capabilities
 
-```
-PDF → Feature Extraction → ML Model → Prediction → API Response
+* 🧠 **Ensemble Learning Models**
+
+  * Random Forest (baseline)
+  * XGBoost (production model)
+  * LightGBM (optimized alternative)
+
+* 🔍 **Advanced Feature Engineering**
+
+  * Entropy-based detection
+  * XREF and object structure analysis
+  * Hidden text and Unicode anomaly detection
+
+* 📊 **Robust Evaluation Framework**
+
+  * Cross-validation
+  * Confusion matrix & ROC analysis
+
+* 🚀 **Real-Time API**
+
+  * Upload PDFs
+  * Get instant threat classification
+
+* 🎨 **Cybersecurity Dashboard (UI)**
+
+  * Interactive threat visualization
+  * Risk-level indicators
+
+---
+
+## 🧠 System Architecture
+
+```text id="arch2"
+PDF Input
+   ↓
+Feature Engineering (Forensic Analysis)
+   ↓
+ML Model (XGBoost / RF / LGBM)
+   ↓
+FastAPI Backend
+   ↓
+Streamlit UI Dashboard
 ```
 
 ---
 
 ## 📊 Model Performance
 
-Evaluation performed using **Stratified 5-Fold Cross-Validation**.
-
-### 🔹 Performance Comparison
+Evaluation performed using **Stratified 5-Fold Cross-Validation**
 
 | Model         | Accuracy   | Precision  | Recall     | F1 Score   | CV Mean F1 |
 | ------------- | ---------- | ---------- | ---------- | ---------- | ---------- |
@@ -82,138 +111,160 @@ Evaluation performed using **Stratified 5-Fold Cross-Validation**.
 | XGBoost       | 0.8061     | 0.8067     | 0.8061     | 0.8060     | **0.8107** |
 | LightGBM      | **0.8137** | **0.8147** | **0.8137** | **0.8135** | 0.8075     |
 
-### 🧠 Model Selection
-
-XGBoost was selected for deployment based on:
-
-* Highest **cross-validation F1 score**
-* Better generalization capability
-* Stable performance across folds
+📌 **XGBoost selected for deployment** due to superior generalization and stability.
 
 ---
 
-## 🚀 How to Run
+## 🧪 Visual Results
+
+### 📊 Confusion Matrix
+
+![Confusion Matrix](results/plots/xgb/confusion_matrix.png)
+
+### 📈 ROC Curve
+
+![ROC Curve](results/plots/xgb/roc_curve.png)
+
+---
+
+## 🚀 How to Run (Backend + UI)
 
 ### 1️⃣ Clone Repository
 
-```bash
+```bash id="clone2"
 git clone https://github.com/amn2905/stegoai.git
 cd stegoai
 ```
 
----
-
 ### 2️⃣ Install Dependencies
 
-```bash
+```bash id="install2"
 pip install -r requirements.txt
 ```
 
----
-
 ### 3️⃣ Setup Environment
 
-Create `.env` file:
-
-```
+```env id="env2"
 MODEL_PATH=models/best_model.pkl
 PORT=8000
 MAX_FILE_SIZE_MB=10
 ```
 
----
-
 ### 4️⃣ Download Model
 
-⚠️ Model is not included in this repository.
+👉 (external link required)
 
-👉 Download from:
+Place here:
 
-```
-(https://drive.google.com/file/d/1sLig5TaZXeAZyS_E7N3tpdcOxLiToyCE/view?usp=drive_link)
-```
-
-👉 Place file here:
-
-```
+```text id="path2"
 models/best_model.pkl
 ```
 
 ---
 
-### 5️⃣ Run API
+## ▶️ Run Backend
 
-```bash
+```bash id="run1"
 uvicorn api.main:app --reload
 ```
 
 ---
 
-### 6️⃣ Open API Docs
+## 🎨 Run UI
 
-```
-http://127.0.0.1:8000/docs
+```bash id="run2"
+streamlit run ui/app.py
 ```
 
 ---
 
-## 📡 API Endpoints
+## 🌐 Access
 
-| Endpoint      | Method | Description              |
-| ------------- | ------ | ------------------------ |
-| `/`           | GET    | Health check             |
-| `/predict`    | POST   | Feature-based prediction |
-| `/upload-pdf` | POST   | Upload PDF file          |
-| `/model-info` | GET    | Model information        |
+* API Docs → http://127.0.0.1:8000/docs
+* UI → http://localhost:8501
 
 ---
 
-## 📦 Example Response
+## 📡 API Capabilities
 
-```json
+* `/upload-pdf` → Upload & analyze PDF
+* `/predict` → Feature-based prediction
+* `/model-info` → Model metadata
+
+---
+
+## 📦 Sample Output
+
+```json id="out2"
 {
-  "prediction": "Stego",
-  "confidence": 0.82,
-  "risk_level": "High"
+"prediction":"Stego"
+"confidence":0.6217
+"risk_level":"High"
+"decision":"Confident Stego"
+"model_used":"XGBoost"
+"probabilities":{
+"clean":0.3783
+"stego":0.6217
+}
 }
 ```
 
 ---
 
-## 🐳 Docker Usage
+# 🌍 Real-World Applications
 
-### Build Image
+StegoAI has strong applicability across multiple high-impact domains:
 
-```bash
-docker build -t stegoai .
-```
+### 🔐 Cybersecurity
 
-### Run Container
+* Detect hidden malware payloads in documents
+* Prevent covert data exfiltration
 
-```bash
-docker run -p 8000:8000 stegoai
-```
+### 🕵️ Digital Forensics
+
+* Investigate cybercrime evidence
+* Identify hidden communication channels
+
+### 🏢 Enterprise Security
+
+* Scan documents in secure pipelines
+* Integrate with SIEM systems
+
+### 🏦 Banking & Finance
+
+* Detect fraud via hidden document manipulation
+* Secure confidential document exchange
+
+### 🛡️ Government & Defense
+
+* Intelligence analysis
+* Covert communication detection
+
+### 📁 Cloud Storage Security
+
+* Scan uploaded files for hidden threats
+
+---
+
+## 📈 Impact
+
+* 🚀 Enables detection of **non-obvious cyber threats**
+* 🔍 Provides **forensic-level document analysis**
+* ⚡ Supports **real-time threat detection pipelines**
+* 🧠 Bridges gap between **ML and cybersecurity**
 
 ---
 
 ## 📁 Project Structure
 
-```
-api/        → FastAPI service layer
-src/        → ML pipeline & feature engineering
+```text id="struct2"
+api/        → Backend API
+src/        → ML pipeline
+ui/         → Streamlit frontend
 models/     → trained models
-results/    → metrics & logs
+results/    → evaluation outputs
 docs/       → documentation
-demo/       → sample inputs/outputs
 ```
-
----
-
-## 🧪 Dataset
-
-* ~19K samples
-* 8 steganography techniques
-* Multiple payload variants
 
 ---
 
@@ -221,26 +272,29 @@ demo/       → sample inputs/outputs
 
 * Python
 * Scikit-learn
-* XGBoost
-* LightGBM
+* XGBoost / LightGBM
 * FastAPI
+* Streamlit
 * Optuna
 
 ---
 
-## 🔐 Security Focus
+## 🔐 Security Perspective
 
-* Detects covert data patterns
-* Identifies structural anomalies
-* Designed for forensic applications
+StegoAI focuses on **behavioral + structural detection**, not just signatures, making it resilient against:
+
+* Unknown attack patterns
+* Obfuscated payloads
+* Adaptive steganography techniques
 
 ---
 
 ## 📈 Future Scope
 
-* Image / Audio / Video steganalysis
-* Deep learning models
-* Real-time detection
+* Multi-modal steganalysis (image/audio/video)
+* Deep learning-based detection
+* Real-time streaming analysis
+* SIEM integration
 
 ---
 
@@ -248,16 +302,16 @@ demo/       → sample inputs/outputs
 
 For research, funding, or deployment:
 
-📩 Email: [hamidamaan3@gmail.com](mailto:hamidamaan3@gmail.com)
+📩 **[hamidamaan3@gmail.com](mailto:hamidamaan3@gmail.com)**
 
 ---
 
 ## 📜 License
 
-All Rights Reserved.
+All Rights Reserved
 
 ---
 
 ## 🧠 Final Note
 
-StegoAI is a complete machine learning-based steganalysis system designed for real-world cybersecurity challenges.
+StegoAI is not just a model—it is a **cybersecurity-grade intelligent detection system** built to uncover hidden threats in modern digital environments.
