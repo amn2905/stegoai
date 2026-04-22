@@ -3,6 +3,7 @@ import os
 import json
 import joblib
 import numpy as np
+import requests
 from typing import Dict, Any, List
 
 from config import PATH_CONFIG
@@ -12,8 +13,14 @@ from src.utils import setup_logger
 logger = setup_logger("inference")
 
 # ===================== CONSTANTS =====================
-MODEL_PATH = PATH_CONFIG["model_path"]
+MODEL_PATH = PATH_CONFIG.get("model_path", "models/best_model.pkl")
 METADATA_PATH = "models/model_metadata.json"
+
+# 🔥 Google Drive Direct Link (converted)
+MODEL_URL = os.getenv(
+    "MODEL_URL",
+    "https://drive.google.com/uc?export=download&id=1sLig5TaZXeAZyS_E7N3tpdcOxLiToyCE"
+)
 
 FEATURE_ORDER: List[str] = [
     "file_size",
@@ -42,19 +49,44 @@ class ModelLoader:
         self.model = None
         self.model_name = "Unknown"
 
+    def download_model(self):
+        """Download model from Google Drive if not exists"""
+        if os.path.exists(self.model_path):
+            return
+
+        try:
+            logger.info("Downloading model from Google Drive...")
+
+            os.makedirs(os.path.dirname(self.model_path), exist_ok=True)
+
+            response = requests.get(MODEL_URL)
+            response.raise_for_status()
+
+            with open(self.model_path, "wb") as f:
+                f.write(response.content)
+
+            logger.info("Model downloaded successfully")
+
+        except Exception as e:
+            logger.critical(f"Model download failed: {e}")
+            raise RuntimeError("Model download error")
+
     def load_model(self):
+        """Load model (download if missing)"""
         if not os.path.exists(self.model_path):
-            logger.critical(f"Model not found at {self.model_path}")
+            self.download_model()
+
+        if not os.path.exists(self.model_path):
             raise FileNotFoundError("Model file missing")
 
         try:
             self.model = joblib.load(self.model_path)
             logger.info("Model loaded successfully")
 
-            # 🔥 DEFAULT FALLBACK (IMPORTANT)
+            # Default model name
             self.model_name = self.model.__class__.__name__
 
-            # 🔥 OVERRIDE WITH METADATA IF AVAILABLE
+            # Metadata override
             if os.path.exists(METADATA_PATH):
                 try:
                     with open(METADATA_PATH, "r") as f:
@@ -67,14 +99,8 @@ class ModelLoader:
                         metadata.get("best_model", self.model_name)
                     )
 
-                    logger.info(f"Model name loaded from metadata: {self.model_name}")
-
                 except Exception as e:
                     logger.warning(f"Metadata read failed: {e}")
-                    logger.info(f"Using fallback model name: {self.model_name}")
-
-            else:
-                logger.warning("Metadata file not found, using fallback model name")
 
         except Exception as e:
             logger.critical(f"Model loading failed: {e}")
@@ -97,39 +123,40 @@ class FeatureProcessor:
 
     @staticmethod
     def to_numpy(features: Dict[str, Any]) -> np.ndarray:
-        try:
-            ordered = [float(features[f]) for f in FEATURE_ORDER]
-            return np.array([ordered], dtype=np.float32)
-        except Exception as e:
-            raise ValueError(f"Feature conversion error: {e}")
+        ordered = [float(features[f]) for f in FEATURE_ORDER]
+        return np.array([ordered], dtype=np.float32)
 
 
-# ===================== PREDICTION ENGINE =====================
+# ===================== PREDICTOR =====================
 class StegoPredictor:
 
     def __init__(self, model_path: str = MODEL_PATH):
         self.loader = ModelLoader(model_path)
-        self.model = self.loader.get_model()
-        self.model_name = self.loader.model_name
+        self.model = None
+        self.model_name = None
+
+    def get_model(self):
+        """Lazy load model"""
+        if self.model is None:
+            self.model = self.loader.get_model()
+            self.model_name = self.loader.model_name
+        return self.model
 
     def predict(self, features: Dict[str, Any]) -> Dict[str, Any]:
         try:
-            # Validate features
-            FeatureProcessor.validate_features(features)
+            model = self.get_model()
 
-            # Convert to numpy
+            FeatureProcessor.validate_features(features)
             X = FeatureProcessor.to_numpy(features)
 
-            # Model inference
-            prediction = self.model.predict(X)[0]
-            proba = self.model.predict_proba(X)[0]
+            prediction = model.predict(X)[0]
+            proba = model.predict_proba(X)[0]
 
             stego_prob = float(proba[1])
             clean_prob = float(proba[0])
 
             label = "Stego" if prediction == 1 else "Clean"
 
-            # Risk logic
             if stego_prob < 0.4:
                 risk = "Low"
                 decision = "Confident Clean"
@@ -140,7 +167,7 @@ class StegoPredictor:
                 risk = "High"
                 decision = "Confident Stego"
 
-            result = {
+            return {
                 "prediction": label,
                 "confidence": round(stego_prob, 4),
                 "risk_level": risk,
@@ -151,9 +178,6 @@ class StegoPredictor:
                     "stego": round(stego_prob, 4)
                 }
             }
-
-            logger.info(f"Inference successful → {result}")
-            return result
 
         except Exception as e:
             logger.error(f"Inference failed: {e}")
