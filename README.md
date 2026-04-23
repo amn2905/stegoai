@@ -152,9 +152,7 @@ MAX_FILE_SIZE_MB=10
 
 ### 4️⃣ Download Model
 
-👉 (external link required)
-
-Place here:
+https://drive.google.com/file/d/1sLig5TaZXeAZyS_E7N3tpdcOxLiToyCE
 
 ```text id="path2"
 models/best_model.pkl
