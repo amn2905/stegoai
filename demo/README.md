@@ -2,19 +2,19 @@
 
 ## 📌 Overview
 
-This demo presents the **StegoAI API**, a production-grade system designed for **PDF steganalysis** using machine learning and forensic feature extraction.
+**StegoAI** is a production-oriented API system for **PDF steganalysis**, leveraging machine learning and forensic feature engineering to detect hidden (covert) data within documents.
 
-The system detects hidden (covert) data embedded within PDF files by analyzing structural, statistical, and anomaly-based features.
+It analyzes structural patterns, statistical irregularities, and embedded anomalies to classify PDFs as **clean or stego-compromised**.
 
 ---
 
 ## 🎯 Key Capabilities
 
 * 🔍 Detect hidden data in PDF files
-* 📊 Feature-based and file-based inference
+* 📊 Support both feature-based and file-based inference
 * ⚡ Real-time API predictions
-* 🧠 Explainable outputs (confidence, risk level, probabilities)
-* 🛡️ Designed for digital forensics and cybersecurity use cases
+* 🧠 Explainable outputs (confidence, probabilities, risk level)
+* 🛡️ Designed for cybersecurity and digital forensics workflows
 
 ---
 
@@ -26,7 +26,7 @@ The system detects hidden (covert) data embedded within PDF files by analyzing s
 * **Input:** `sample_input.json`
 * **Output:** `sample_output.json`
 
-This mode allows direct testing using pre-extracted features.
+Direct inference using pre-extracted features.
 
 ---
 
@@ -34,9 +34,9 @@ This mode allows direct testing using pre-extracted features.
 
 * **Endpoint:** `/upload-pdf`
 * **Input:** `sample_pdf/test.pdf`
-* **Output:** JSON response with prediction and analysis
+* **Output:** JSON response with prediction
 
-This demonstrates the **end-to-end pipeline**:
+**Pipeline:**
 
 ```
 PDF → Feature Extraction → ML Model → Detection Output
@@ -46,12 +46,12 @@ PDF → Feature Extraction → ML Model → Detection Output
 
 ## 📂 Demo Files
 
-| File                       | Description              |
-| -------------------------- | ------------------------ |
-| `sample_input.json`        | Example feature input    |
-| `sample_output.json`       | Example API response     |
-| `sample_pdf/test.pdf`      | Sample PDF for testing   |
-| `screenshots/api_demo.png` | Live API execution proof |
+| File                  | Description           |
+| --------------------- | --------------------- |
+| `sample_input.json`   | Example feature input |
+| `sample_output.json`  | API response output   |
+| `sample_pdf/test.pdf` | Sample test document  |
+| `demo/screenshots/`   | API demo screenshots  |
 
 ---
 
@@ -72,40 +72,60 @@ PDF → Feature Extraction → ML Model → Detection Output
 ```
 
 ---
+## 📸 User Interface (UI) Demo
 
-## 📸 API Demo
+The following screenshots demonstrate the **end-to-end user workflow** of StegoAI, from PDF upload to final analysis results.
 
-Refer to:
+### 📂 Screenshots Directory
 
+```bash
+demo/screenshots/
 ```
-demo/screenshots/api_demo.png
+
+### 🖥️ UI Workflow Overview
+
+| Screenshot                 | Description                                                           |
+| -------------------------- | --------------------------------------------------------------------- |
+| `demo_homepage.png`        | Landing page with system overview and navigation                      |
+| `demo_upload.png`          | Interface for uploading PDF files for analysis                        |
+| `demo_result.png`          | Prediction summary showing classification, confidence, and risk level |
+| `demo_complete_result.png` | Detailed analysis report with extracted features and insights         |
+
+---
+
+### 🔄 End-to-End Flow
+
+```bash
+Upload PDF → Analyze → Prediction → Detailed Report
 ```
 
-This screenshot demonstrates:
+---
+### 🎯 Highlights
 
-* PDF upload via Swagger UI
-* Real-time inference
-* Structured response output
+* Clean and intuitive UI for seamless interaction
+* Real-time processing and result visualization
+* Structured output with explainable insights
+* Designed for practical cybersecurity workflows
 
 ---
 
 ## 🧠 Technical Highlights
 
-* Feature Engineering:
+### Feature Engineering
 
-  * Entropy analysis
-  * Structural anomaly detection
-  * Metadata inspection
+* Entropy analysis
+* Structural anomaly detection
+* Metadata inspection
 
-* Models Used:
+### Models Evaluated
 
-  * Random Forest
-  * XGBoost
-  * LightGBM
+* Random Forest
+* XGBoost
+* LightGBM
 
-* Best Model:
+### Best Model
 
-  * **XGBoost (based on F1-score and generalization)**
+* **XGBoost** (based on F1-score and generalization performance)
 
 ---
 
@@ -120,16 +140,16 @@ This screenshot demonstrates:
 
 ## 🚀 Value Proposition
 
-StegoAI provides a **scalable and extensible framework** for detecting hidden information across digital formats, with future scope for:
+StegoAI provides a **scalable and extensible framework** for hidden data detection in digital documents.
+
+**Future Scope:**
 
 * Image steganalysis
-* Audio/video covert detection
+* Audio/Video covert detection
 * Multi-modal security intelligence
 
 ---
 
 ## 🏁 Conclusion
 
-This demo validates the **practical applicability** of StegoAI as a real-world cybersecurity tool, combining machine learning with forensic analysis for robust hidden data detection.
-
----
+This demo demonstrates the real-world applicability of **StegoAI** as a cybersecurity tool, combining machine learning with forensic analysis to deliver robust and explainable steganography detection.
